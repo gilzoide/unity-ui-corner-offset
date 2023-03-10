@@ -1,0 +1,11 @@
+{
+  "name": "com.gilzoide.ui-corner-offset",
+  "displayName": "UI Corner Offset",
+  "version": "1.0.0",
+  "description": "Corner Offset mesh modifier for Unity UI, useful for shearing/skewing Graphics",
+  "homepage": "https://github.com/gilzoide/unity-ui-corner-offset",
+  "license": "Unlicense",
+  "author": {
+    "name": "Gil Barbosa Reis"
+  }
+}
