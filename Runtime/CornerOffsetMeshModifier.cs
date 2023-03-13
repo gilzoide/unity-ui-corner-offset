@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 namespace Gilzoide.GraphicCornerOffset
 {
+    [RequireComponent(typeof(RectTransform))]
     public class CornerOffsetMeshModifier : BaseMeshEffect
     {
         [Tooltip("Offset applied to the bottom left corner")]
@@ -16,35 +17,21 @@ namespace Gilzoide.GraphicCornerOffset
 
         public override void ModifyMesh(VertexHelper vh)
         {
-            Vector3 rectCenter = (transform is RectTransform rectTransform) ? rectTransform.rect.center : transform.position;
+            Rect rect = ((RectTransform) transform).rect;
             
             UIVertex vertex = default;
             for (int i = 0; i < vh.currentVertCount; i++)
             {
                 vh.PopulateUIVertex(ref vertex, i);
-                Vector3 diffToCenter = vertex.position - rectCenter;
-                if (diffToCenter.x < 0)
-                {
-                    if (diffToCenter.y < 0)
-                    {
-                        vertex.position += BottomLeft;
-                    }
-                    else
-                    {
-                        vertex.position += TopLeft;
-                    }
-                }
-                else
-                {
-                    if (diffToCenter.y < 0)
-                    {
-                        vertex.position += BottomRight;
-                    }
-                    else
-                    {
-                        vertex.position += TopRight;
-                    }
-                }
+
+                Vector2 normalizedPosition = Rect.PointToNormalized(rect, vertex.position);
+
+                vertex.position = vertex.position
+                    + BottomLeft * (1f - normalizedPosition.x) * (1f - normalizedPosition.y)
+                    + TopLeft * (1f - normalizedPosition.x) * normalizedPosition.y
+                    + TopRight * normalizedPosition.x * normalizedPosition.y
+                    + BottomRight * normalizedPosition.x * (1f - normalizedPosition.y);
+
                 vh.SetUIVertex(vertex, i);
             }
         }
