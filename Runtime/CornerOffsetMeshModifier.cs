@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Gilzoide.GraphicCornerOffset
+namespace Gilzoide.UiCornerOffset
 {
     [RequireComponent(typeof(RectTransform))]
     public class CornerOffsetMeshModifier : BaseMeshEffect

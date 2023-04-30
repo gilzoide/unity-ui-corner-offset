@@ -1,6 +1,6 @@
 {
-    "name": "Gilzoide.GraphicCornerOffset",
-    "rootNamespace": "Gilzoide.GraphicCornerOffset",
+    "name": "Gilzoide.UiCornerOffset",
+    "rootNamespace": "Gilzoide.UiCornerOffset",
     "references": [
         "GUID:2bafac87e7f4b9b418d9448d219b01ab"
     ],
