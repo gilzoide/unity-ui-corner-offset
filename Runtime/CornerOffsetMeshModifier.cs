@@ -20,6 +20,11 @@ namespace Gilzoide.GraphicCornerOffset
 
         public override void ModifyMesh(VertexHelper vh)
         {
+            if (!isActiveAndEnabled)
+            {
+                return;
+            }
+
             Rect rect = ((RectTransform) transform).rect;
             
             UIVertex vertex = default;
@@ -49,5 +54,29 @@ namespace Gilzoide.GraphicCornerOffset
                 + TopRight * normalizedPosition.x * normalizedPosition.y
                 + BottomRight * normalizedPosition.x * (1f - normalizedPosition.y);
         }
+
+#if UNITY_EDITOR
+        private readonly Vector3[] _corners = new Vector3[4];
+        private void OnDrawGizmosSelected()
+        {
+            if (!isActiveAndEnabled)
+            {
+                return;
+            }
+
+            ((RectTransform) transform).GetLocalCorners(_corners);
+
+            Rect rect = ((RectTransform) transform).rect;
+            ApplyModifier(ref _corners[0], rect);
+            ApplyModifier(ref _corners[1], rect);
+            ApplyModifier(ref _corners[2], rect);
+            ApplyModifier(ref _corners[3], rect);
+
+            Gizmos.DrawLine(transform.TransformPoint(_corners[0]), transform.TransformPoint(_corners[1]));
+            Gizmos.DrawLine(transform.TransformPoint(_corners[1]), transform.TransformPoint(_corners[2]));
+            Gizmos.DrawLine(transform.TransformPoint(_corners[2]), transform.TransformPoint(_corners[3]));
+            Gizmos.DrawLine(transform.TransformPoint(_corners[3]), transform.TransformPoint(_corners[0]));
+        }
+#endif
     }
 }
