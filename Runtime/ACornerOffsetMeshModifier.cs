@@ -10,7 +10,7 @@ namespace Gilzoide.UiCornerOffset
 
         public override void ModifyMesh(VertexHelper vh)
         {
-            if (!isActiveAndEnabled)
+            if (!IsActive())
             {
                 return;
             }
@@ -36,7 +36,7 @@ namespace Gilzoide.UiCornerOffset
 
         protected virtual void OnDrawGizmosSelected()
         {
-            if (!isActiveAndEnabled)
+            if (!IsActive())
             {
                 return;
             }
